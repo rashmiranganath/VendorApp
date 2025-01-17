@@ -1,5 +1,5 @@
 import React, {  useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import styles from './login.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -33,12 +33,16 @@ const LoginPage: React.FC = () => {
       .min(6, 'Password must be at least 6 characters'),
   });
 
-  const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting }: FormikHelpers<FormValues>
+  ) => {
     try {
       localStorage.setItem('user', JSON.stringify(values));
       setSubmitting(false);
-      window.location.href = '/dashboard';
+      navigate('/dashboard', { replace: true });
     } catch (error) {
+      console.error('Login error:', error);
       setSubmitting(false);
     }
   };
