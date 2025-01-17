@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
+import React, { useState, useRef } from "react";
+import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
 import styles from "./InvoiceForm.module.scss";
 import FormInput from "./common/FormInput";
 import FormSection from "./common/FormSection";
 import { formOptions } from "../constants/formOptions";
-import { useNavigate } from "react-router-dom";
 
 interface InvoiceFormValues {
   vendor: string;
