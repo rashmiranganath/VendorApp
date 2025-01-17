@@ -1,0 +1,326 @@
+@use '../styles/colors' as *;
+
+.dashboardContainer {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: $spacing-4;
+  min-height: 100vh;
+  padding: $spacing-4;
+  background: $gray-50;
+}
+
+.uploadSection {
+  background: $white;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: $shadow-md;
+  height: fit-content;
+  position: sticky;
+  top: $spacing-4;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-8;
+
+  h2 {
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    color: $text-dark;
+    letter-spacing: -0.02em;
+  }
+}
+
+.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 350px;
+  border: $border-width-sm $border-style-dashed $border-dashed;
+  border-radius: $radius-lg;
+  padding: $spacing-8;
+  cursor: pointer;
+  transition: $transition-all;
+  background: $gray-50;
+
+  &:hover {
+    border-color: $border-active;
+    background: $primary-light;
+  }
+}
+
+.uploadIcon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: $spacing-6;
+  color: $primary;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.uploadHint {
+  color: $text-muted;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  margin: $spacing-2 0;
+}
+
+.uploadButton {
+  background-color: $primary;
+  color: $white;
+  border: none;
+  padding: $spacing-2 $spacing-5;
+  border-radius: $radius-md;
+  font-weight: $font-medium;
+  font-size: $text-sm;
+  margin: $spacing-4 0;
+  cursor: pointer;
+  transition: $transition-colors;
+
+  &:hover {
+    background-color: $primary-dark;
+  }
+}
+
+.dragText {
+  color: $text-muted;
+  font-size: $text-xs;
+}
+
+.tabsSection {
+  background: $white;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: $border-width-sm $border-style-solid $border-divider;
+  margin-bottom: $spacing-6;
+  gap: $spacing-8;
+  position: sticky;
+  top: 0;
+  background: $white;
+  padding: $spacing-4 0;
+  z-index: $z-10;
+}
+
+.tab {
+  padding: $spacing-3 0;
+  border: none;
+  background: none;
+  color: $text-muted;
+  font-size: $text-sm;
+  font-weight: $font-semibold;
+  cursor: pointer;
+  position: relative;
+  transition: $transition-colors;
+  letter-spacing: -0.01em;
+
+  &.active {
+    color: $primary;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -$border-width-sm;
+      left: 0;
+      right: 0;
+      height: $border-width-md;
+      background: $border-active;
+    }
+  }
+
+  &:hover:not(.active) {
+    color: $text-hover;
+  }
+}
+
+.formGroup {
+  margin-bottom: $spacing-5;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-2;
+    color: $text-secondary;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    letter-spacing: -0.01em;
+
+    &::after {
+      content: ' *';
+      color: $error;
+    }
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: $spacing-2;
+    border: $border-width-sm $border-style-solid $border-input;
+    border-radius: $radius-md;
+    font-size: $text-sm;
+    font-weight: $font-normal;
+    color: $text-body;
+    background: $white;
+    transition: $transition-all;
+
+    &:focus {
+      border-color: $border-focus;
+      box-shadow: 0 0 0 3px $primary-focus;
+      outline: none;
+    }
+
+    &.error {
+      border-color: $border-error;
+    }
+
+    &::placeholder {
+      color: $text-light;
+      font-weight: $font-normal;
+    }
+  }
+
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-4;
+}
+
+.section {
+  margin-bottom: $spacing-8;
+  scroll-margin-top: 100px;
+  
+  h3 {
+    color: $text-body;
+    font-size: $text-lg;
+    font-weight: $font-semibold;
+    margin-bottom: $spacing-4;
+    letter-spacing: -0.02em;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-4;
+
+  .totalAmount {
+    display: flex;
+    gap: $spacing-2;
+    color: $text-muted;
+    font-size: $text-sm;
+  }
+}
+
+.addExpenseButton {
+  width: 100%;
+  padding: $spacing-2;
+  background-color: $white;
+  border: $border-width-sm $border-style-dashed $border-active;
+  color: $primary;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: $transition-all;
+  margin-top: $spacing-4;
+
+  &:hover {
+    background-color: $primary-light;
+  }
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-4;
+  margin-top: $spacing-8;
+  padding-top: $spacing-6;
+  border-top: $border-width-sm $border-style-solid $border-divider;
+}
+
+.submitButton {
+  background: $primary;
+  color: $white;
+  border: none;
+  padding: $spacing-2 $spacing-5;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: $transition-colors;
+
+  &:hover {
+    background: $primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.errorMessage {
+  color: $error;
+  font-size: $text-xs;
+  margin-top: $spacing-1;
+  font-weight: $font-medium;
+}
+
+.selectedFile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-4;
+  padding: $spacing-3;
+  background-color: $gray-50;
+  border-radius: $radius-md;
+  font-size: $text-sm;
+
+  button {
+    color: $error;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: $text-xs;
+    padding: $spacing-1 $spacing-2;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.link {
+  color: $primary;
+  text-decoration: none;
+  font-size: $text-sm;
+  display: inline-block;
+  margin-top: $spacing-2;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.vendorDetails,
+.invoiceDetails,
+.comments {
+  scroll-margin-top: 100px;
+  margin-bottom: $spacing-8;
+} 

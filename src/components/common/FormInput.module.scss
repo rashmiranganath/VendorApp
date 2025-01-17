@@ -1,0 +1,71 @@
+@use '../../styles' as *;
+
+.formGroup {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $text-secondary;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .required {
+    color: $danger;
+    margin-left: 0.25rem;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid $gray-300;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      @include input-focus;
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &.error {
+      border-color: $danger;
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($danger, 0.1);
+      }
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+.currencyInput {
+  position: relative;
+
+  span {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-secondary;
+  }
+
+  input {
+    padding-left: 2rem;
+  }
+}
+
+.errorMessage {
+  color: $danger;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+} 

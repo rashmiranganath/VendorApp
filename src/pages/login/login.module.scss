@@ -1,0 +1,88 @@
+@use '../../styles/colors' as *;
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $gray-50;
+}
+
+.loginForm {
+  background: $white;
+  padding: $spacing-8;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  width: 100%;
+  max-width: 400px;
+
+  h2 {
+    color: $text-primary;
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+    margin-bottom: $spacing-6;
+    text-align: center;
+  }
+
+  div {
+    margin-bottom: $spacing-4;
+  }
+
+  label {
+    display: block;
+    margin-bottom: $spacing-2;
+    color: $text-secondary;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-3;
+  border: $border-width-sm $border-style-solid $border-input;
+  border-radius: $radius-md;
+  font-size: $text-base;
+  color: $text-primary;
+  transition: $transition-all;
+
+  &:focus {
+    border-color: $border-focus;
+    box-shadow: 0 0 0 3px $primary-focus;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $text-light;
+  }
+}
+
+.button {
+  width: 100%;
+  padding: $spacing-3;
+  background-color: $primary;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $text-base;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: $transition-colors;
+  margin-top: $spacing-6;
+
+  &:hover {
+    background-color: $primary-dark;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  color: $error;
+  font-size: $text-xs;
+  margin-top: $spacing-1;
+  font-weight: $font-medium;
+} 

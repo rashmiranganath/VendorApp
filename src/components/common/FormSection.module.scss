@@ -1,0 +1,30 @@
+@use '../../styles/colors' as colors;
+
+.section {
+  margin-bottom: 2rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    color: colors.$text-body;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .totalAmount {
+    display: flex;
+    gap: 0.5rem;
+    color: colors.$text-secondary;
+    font-size: 0.9rem;
+  }
+} 

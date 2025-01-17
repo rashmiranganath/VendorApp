@@ -1,0 +1,30 @@
+@use '../../styles/colors' as *;
+@use 'sass:color';
+
+.dashboardContainer {
+  min-height: 100vh;
+  background-color: $gray-50;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background-color: $white;
+  border-bottom: 1px solid $gray-200;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  background-color: $primary;
+  color: $white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: color.scale($primary, $lightness: -10%);
+  }
+} 
