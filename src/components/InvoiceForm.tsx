@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Formik, Form, FormikProps } from "formik";
 import * as Yup from "yup";
 import styles from "./InvoiceForm.module.scss";
@@ -92,6 +92,8 @@ const formatFormData = (values: InvoiceFormValues) => {
   };
 };
 
+const STORAGE_KEY = 'vendorInvoiceData';
+
 const InvoiceForm: React.FC = () => {
   const [activeTab, setActiveTab] = useState("vendorDetails");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -100,44 +102,39 @@ const InvoiceForm: React.FC = () => {
 
   const getSavedFormData = (): InvoiceFormValues => {
     try {
-      const savedData = localStorage.getItem("invoiceSubmissions");
+      const savedData = localStorage.getItem(STORAGE_KEY);
       if (!savedData) return initialValues;
-
+      
       const parsedData = JSON.parse(savedData);
-      if (!Array.isArray(parsedData) || parsedData.length === 0) {
-        return initialValues;
-      }
-
-      const latestSubmission = parsedData[parsedData.length - 1];
-      if (!latestSubmission || !latestSubmission.data) {
-        return initialValues;
-      }
-
-      const formData = latestSubmission.data;
-      console.log("Loading saved form data:", formData);
-
       return {
-        vendor: formData.vendorDetails?.vendor || "",
-        purchaseOrderNumber: formData.invoiceDetails?.purchaseOrderNumber || "",
-        invoiceNumber: formData.invoiceDetails?.invoiceNumber || "",
-        invoiceDate: formData.invoiceDetails?.invoiceDate || "",
-        totalAmount: formData.invoiceDetails?.totalAmount || "",
-        paymentTerms: formData.invoiceDetails?.paymentTerms || "",
-        invoiceDueDate: formData.invoiceDetails?.invoiceDueDate || "",
-        postDate: formData.invoiceDetails?.postDate || "",
-        invoiceDescription: formData.invoiceDetails?.invoiceDescription || "",
-        lineAmount: formData.invoiceDetails?.lineAmount || "",
-        department: formData.invoiceDetails?.department || "",
-        account: formData.invoiceDetails?.account || "",
-        location: formData.invoiceDetails?.location || "",
-        description: formData.invoiceDetails?.description || "",
-        comments: formData.comments?.comments || "",
+        vendor: parsedData.vendorDetails?.vendor || '',
+        purchaseOrderNumber: parsedData.invoiceDetails?.purchaseOrderNumber || '',
+        invoiceNumber: parsedData.invoiceDetails?.invoiceNumber || '',
+        invoiceDate: parsedData.invoiceDetails?.invoiceDate || '',
+        totalAmount: parsedData.invoiceDetails?.totalAmount || '',
+        paymentTerms: parsedData.invoiceDetails?.paymentTerms || '',
+        invoiceDueDate: parsedData.invoiceDetails?.invoiceDueDate || '',
+        postDate: parsedData.invoiceDetails?.postDate || '',
+        invoiceDescription: parsedData.invoiceDetails?.invoiceDescription || '',
+        lineAmount: parsedData.invoiceDetails?.lineAmount || '',
+        department: parsedData.invoiceDetails?.department || '',
+        account: parsedData.invoiceDetails?.account || '',
+        location: parsedData.invoiceDetails?.location || '',
+        description: parsedData.invoiceDetails?.description || '',
+        comments: parsedData.comments?.comments || ''
       };
     } catch (error) {
-      console.error("Error loading saved form data:", error);
+      console.error('Error loading saved form data:', error);
       return initialValues;
     }
   };
+
+  useEffect(() => {
+    const savedData = getSavedFormData();
+    if (formikRef.current && JSON.stringify(savedData) !== JSON.stringify(initialValues)) {
+      formikRef.current.setValues(savedData);
+    }
+  }, []);
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -162,32 +159,34 @@ const InvoiceForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (
-    values: InvoiceFormValues,
-    { setSubmitting, resetForm }: any
-  ) => {
+  const handleSubmit = (values: InvoiceFormValues, { setSubmitting, resetForm }: any) => {
     try {
       const formattedData = formatFormData(values);
-      const submissions = JSON.parse(
-        localStorage.getItem("invoiceSubmissions") || "[]"
-      );
+      
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(formattedData));
+      
+      const submissions = JSON.parse(localStorage.getItem('invoiceSubmissions') || '[]');
       submissions.push({
         id: Date.now(),
         data: formattedData,
-        submittedAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString()
       });
-      localStorage.setItem("invoiceSubmissions", JSON.stringify(submissions));
 
-      console.log("Form submitted successfully:", formattedData);
-      alert("Invoice saved successfully!");
-      resetForm();
+      console.log('Form submitted successfully:', formattedData);
+      alert('Invoice saved successfully!');
+      
+      const savedData = localStorage.getItem(STORAGE_KEY);
+      if (!savedData) {
+        resetForm();
+        setSelectedFile(null);
+        setActiveTab('vendorDetails');
+      }
+      
       setSubmitting(false);
-      setSelectedFile(null);
-      setActiveTab("vendorDetails");
     } catch (error) {
-      console.error("Submission error:", error);
+      console.error('Submission error:', error);
       setSubmitting(false);
-      alert("Error saving invoice. Please try again.");
+      alert('Error saving invoice. Please try again.');
     }
   };
 
@@ -280,8 +279,8 @@ const InvoiceForm: React.FC = () => {
           onSubmit={handleSubmit}
           enableReinitialize={true}
         >
-          {({ isSubmitting, handleSubmit }) => (
-            <Form onSubmit={handleSubmit}>
+          {({ isSubmitting }) => (
+            <Form>
               <div id="vendorDetails" className={styles.vendorDetails}>
                 <FormSection title="Vendor Information">
                   <FormInput
