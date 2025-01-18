@@ -1,5 +1,5 @@
-import React, {  useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './login.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -12,46 +12,19 @@ interface FormValues {
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      navigate('/dashboard');
-    }
-  }, [navigate]);
-
-  const initialValues: FormValues = {
-    username: '',
-    password: '',
-  };
-
-  const validationSchema = Yup.object<FormValues>({
-    username: Yup.string()
-      .required('Username is required')
-      .min(3, 'Username must be at least 3 characters'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters'),
-  });
-
-  const handleSubmit = async (
-    values: FormValues,
-    { setSubmitting }: FormikHelpers<FormValues>
-  ) => {
-    try {
-      localStorage.setItem('user', JSON.stringify(values));
-      setSubmitting(false);
-      navigate('/dashboard', { replace: true });
-    } catch (error) {
-      console.error('Login error:', error);
-      setSubmitting(false);
-    }
+  const handleSubmit = (values: FormValues) => {
+    localStorage.setItem('user', JSON.stringify(values));
+    navigate('/dashboard');
   };
 
   return (
     <div className={styles.loginContainer}>
       <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
+        initialValues={{ username: '', password: '' }}
+        validationSchema={Yup.object({
+          username: Yup.string().required('Username is required'),
+          password: Yup.string().required('Password is required')
+        })}
         onSubmit={handleSubmit}
       >
         <Form className={styles.loginForm}>

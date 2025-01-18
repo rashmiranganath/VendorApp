@@ -8,7 +8,7 @@ const DashboardPage: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login', { replace: true }); 
+    navigate('/login');
   };
 
   return (
