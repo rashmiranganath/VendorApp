@@ -5,6 +5,9 @@ import styles from "./InvoiceForm.module.scss";
 import FormInput from "./common/FormInput";
 import FormSection from "./common/FormSection";
 import { formOptions } from "../constants/formOptions";
+import buildingIcon from "../assets/buildingIcon.png";
+import invoiceIcon from "../assets/invoiceIcon.png";
+import commentIcon from "../assets/invoiceIcon.png";
 
 interface InvoiceFormValues {
   vendor: string;
@@ -92,7 +95,60 @@ const formatFormData = (values: InvoiceFormValues) => {
   };
 };
 
-const STORAGE_KEY = 'vendorInvoiceData';
+const STORAGE_KEY = "vendorInvoiceData";
+
+const UploadIcon = () => (
+  <svg
+    width="120"
+    height="120"
+    viewBox="0 0 120 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="60" cy="60" r="60" fill="#2563EB" />
+    <rect
+      x="35"
+      y="35"
+      width="50"
+      height="50"
+      rx="4"
+      stroke="white"
+      strokeWidth="2"
+    />
+    <path
+      d="M60 45V75M60 45L48 57M60 45L72 57"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M45 65V70C45 71.6569 46.3431 73 48 73H72C73.6569 73 75 71.6569 75 70V65"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16.6666 5L7.49992 14.1667L3.33325 10"
+      stroke="#10B981"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const InvoiceForm: React.FC = () => {
   const [activeTab, setActiveTab] = useState("vendorDetails");
@@ -104,34 +160,38 @@ const InvoiceForm: React.FC = () => {
     try {
       const savedData = localStorage.getItem(STORAGE_KEY);
       if (!savedData) return initialValues;
-      
+
       const parsedData = JSON.parse(savedData);
       return {
-        vendor: parsedData.vendorDetails?.vendor || '',
-        purchaseOrderNumber: parsedData.invoiceDetails?.purchaseOrderNumber || '',
-        invoiceNumber: parsedData.invoiceDetails?.invoiceNumber || '',
-        invoiceDate: parsedData.invoiceDetails?.invoiceDate || '',
-        totalAmount: parsedData.invoiceDetails?.totalAmount || '',
-        paymentTerms: parsedData.invoiceDetails?.paymentTerms || '',
-        invoiceDueDate: parsedData.invoiceDetails?.invoiceDueDate || '',
-        postDate: parsedData.invoiceDetails?.postDate || '',
-        invoiceDescription: parsedData.invoiceDetails?.invoiceDescription || '',
-        lineAmount: parsedData.invoiceDetails?.lineAmount || '',
-        department: parsedData.invoiceDetails?.department || '',
-        account: parsedData.invoiceDetails?.account || '',
-        location: parsedData.invoiceDetails?.location || '',
-        description: parsedData.invoiceDetails?.description || '',
-        comments: parsedData.comments?.comments || ''
+        vendor: parsedData.vendorDetails?.vendor || "",
+        purchaseOrderNumber:
+          parsedData.invoiceDetails?.purchaseOrderNumber || "",
+        invoiceNumber: parsedData.invoiceDetails?.invoiceNumber || "",
+        invoiceDate: parsedData.invoiceDetails?.invoiceDate || "",
+        totalAmount: parsedData.invoiceDetails?.totalAmount || "",
+        paymentTerms: parsedData.invoiceDetails?.paymentTerms || "",
+        invoiceDueDate: parsedData.invoiceDetails?.invoiceDueDate || "",
+        postDate: parsedData.invoiceDetails?.postDate || "",
+        invoiceDescription: parsedData.invoiceDetails?.invoiceDescription || "",
+        lineAmount: parsedData.invoiceDetails?.lineAmount || "",
+        department: parsedData.invoiceDetails?.department || "",
+        account: parsedData.invoiceDetails?.account || "",
+        location: parsedData.invoiceDetails?.location || "",
+        description: parsedData.invoiceDetails?.description || "",
+        comments: parsedData.comments?.comments || "",
       };
     } catch (error) {
-      console.error('Error loading saved form data:', error);
+      console.error("Error loading saved form data:", error);
       return initialValues;
     }
   };
 
   useEffect(() => {
     const savedData = getSavedFormData();
-    if (formikRef.current && JSON.stringify(savedData) !== JSON.stringify(initialValues)) {
+    if (
+      formikRef.current &&
+      JSON.stringify(savedData) !== JSON.stringify(initialValues)
+    ) {
       formikRef.current.setValues(savedData);
     }
   }, []);
@@ -159,34 +219,40 @@ const InvoiceForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (values: InvoiceFormValues, { setSubmitting, resetForm }: any) => {
+  const handleSubmit = (
+    values: InvoiceFormValues,
+    { setSubmitting, resetForm }: any
+  ) => {
     try {
       const formattedData = formatFormData(values);
-      
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(formattedData));
-      
-      const submissions = JSON.parse(localStorage.getItem('invoiceSubmissions') || '[]');
+
+      const submissions = JSON.parse(
+        localStorage.getItem("invoiceSubmissions") || "[]"
+      );
       submissions.push({
         id: Date.now(),
         data: formattedData,
-        submittedAt: new Date().toISOString()
+        submittedAt: new Date().toISOString(),
       });
 
-      console.log('Form submitted successfully:', formattedData);
-      alert('Invoice saved successfully!');
-      
+      console.log("Form submitted successfully:", formattedData);
+      alert("Invoice saved successfully!");
+
       const savedData = localStorage.getItem(STORAGE_KEY);
+      
       if (!savedData) {
         resetForm();
         setSelectedFile(null);
-        setActiveTab('vendorDetails');
+        setActiveTab("vendorDetails");
       }
-      
+
       setSubmitting(false);
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error("Submission error:", error);
       setSubmitting(false);
-      alert('Error saving invoice. Please try again.');
+      alert("Error saving invoice. Please try again.");
     }
   };
 
@@ -217,15 +283,7 @@ const InvoiceForm: React.FC = () => {
             style={{ display: "none" }}
           />
           <div className={styles.uploadIcon}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M9 17V7m0 0L5 11m4-4l4 4" />
-              <path d="M20 21H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v14a2 2 0 01-2 2z" />
-            </svg>
+            <UploadIcon />
           </div>
           <p>Upload Your Invoice</p>
           <span className={styles.uploadHint}>
@@ -239,7 +297,10 @@ const InvoiceForm: React.FC = () => {
 
         {selectedFile && (
           <div className={styles.selectedFile}>
-            <span>Selected file: {selectedFile.name}</span>
+            <div className={styles.fileInfo}>
+              <CheckIcon />
+              <span>{selectedFile.name}</span>
+            </div>
             <button onClick={() => setSelectedFile(null)}>Remove</button>
           </div>
         )}
@@ -282,7 +343,12 @@ const InvoiceForm: React.FC = () => {
           {({ isSubmitting }) => (
             <Form>
               <div id="vendorDetails" className={styles.vendorDetails}>
-                <FormSection title="Vendor Information">
+                <FormSection
+                  title="Vendor Details"
+                  icon={buildingIcon}
+                  iconType="left"
+                  subTitle="Vendor Information"
+                >
                   <FormInput
                     label="Vendor"
                     name="vendor"
@@ -297,12 +363,21 @@ const InvoiceForm: React.FC = () => {
               </div>
 
               <div id="invoiceDetails" className={styles.invoiceDetails}>
-                <FormSection title="General Information">
+                <FormSection
+                  title="Invoice Details"
+                  icon={invoiceIcon}
+                  iconType="left"
+                  subTitle="General Information"
+                >
                   <FormInput
                     label="Purchase Order Number"
                     name="purchaseOrderNumber"
                     placeholder="Enter purchase order number"
                   />
+                </FormSection>
+
+                <FormSection title="" subTitle="Invoice Deatils">
+                  {" "}
                   <FormInput
                     label="Invoice Number"
                     name="invoiceNumber"
@@ -338,7 +413,7 @@ const InvoiceForm: React.FC = () => {
                     placeholder="Enter invoice description"
                   />
                 </FormSection>
-                <FormSection title="Invoice Details">
+                <FormSection title="" subTitle="Expense Details">
                   <FormInput
                     label="Line Amount"
                     name="lineAmount"
@@ -369,7 +444,11 @@ const InvoiceForm: React.FC = () => {
               </div>
 
               <div id="comments" className={styles.comments}>
-                <FormSection title="Comments">
+                <FormSection
+                  title="Comments"
+                  icon={commentIcon}
+                  iconType="left"
+                >
                   <FormInput
                     label="Comments"
                     name="comments"

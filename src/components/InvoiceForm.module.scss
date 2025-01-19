@@ -1,4 +1,4 @@
-@use '../styles/colors' as *;
+@use "../styles/colors" as *;
 
 .dashboardContainer {
   display: grid;
@@ -38,8 +38,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 350px;
-  border: $border-width-sm $border-style-dashed $border-dashed;
+  min-height: 400px;
+  border: 2px dashed $border-dashed;
   border-radius: $radius-lg;
   padding: $spacing-8;
   cursor: pointer;
@@ -50,13 +50,22 @@
     border-color: $border-active;
     background: $primary-light;
   }
+
+  p {
+    font-size: $text-lg;
+    font-weight: $font-medium;
+    color: $text-dark;
+    margin-bottom: $spacing-2;
+  }
 }
 
 .uploadIcon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: $spacing-6;
-  color: $primary;
+  width: 120px;
+  height: 120px;
+  margin-bottom: $spacing-8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   svg {
     width: 100%;
@@ -129,7 +138,7 @@
   &.active {
     color: $primary;
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -$border-width-sm;
       left: 0;
@@ -156,12 +165,14 @@
     letter-spacing: -0.01em;
 
     &::after {
-      content: ' *';
+      content: " *";
       color: $error;
     }
   }
 
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     width: 100%;
     padding: $spacing-2;
     border: $border-width-sm $border-style-solid $border-input;
@@ -203,7 +214,7 @@
 .section {
   margin-bottom: $spacing-8;
   scroll-margin-top: 100px;
-  
+
   h3 {
     color: $text-body;
     font-size: $text-lg;
@@ -287,10 +298,23 @@
   align-items: center;
   justify-content: space-between;
   margin-top: $spacing-4;
-  padding: $spacing-3;
+  padding: $spacing-3 $spacing-4;
   background-color: $gray-50;
   border-radius: $radius-md;
-  font-size: $text-sm;
+
+  .fileInfo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    color: $text-body;
+    font-size: $text-sm;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: $success;
+    }
+  }
 
   button {
     color: $error;
@@ -299,6 +323,7 @@
     cursor: pointer;
     font-size: $text-xs;
     padding: $spacing-1 $spacing-2;
+    font-weight: $font-medium;
 
     &:hover {
       text-decoration: underline;
@@ -323,4 +348,11 @@
 .comments {
   scroll-margin-top: 100px;
   margin-bottom: $spacing-8;
-} 
+}
+
+.vendorDetails {
+  .vendorDetailsIcon {
+    height: 1rem;
+    width: 1rem;
+  }
+}

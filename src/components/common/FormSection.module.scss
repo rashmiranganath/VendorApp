@@ -1,8 +1,8 @@
-@use '../../styles/colors' as colors;
+@use "../../styles/colors" as colors;
 
 .section {
   margin-bottom: 2rem;
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -10,9 +10,10 @@
 
 .sectionHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: flex-start;
 
   h3 {
     color: colors.$text-body;
@@ -27,4 +28,13 @@
     color: colors.$text-secondary;
     font-size: 0.9rem;
   }
-} 
+  .icon{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
