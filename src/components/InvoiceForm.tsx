@@ -405,7 +405,7 @@ const InvoiceForm: React.FC = () => {
                       name="invoiceDueDate"
                       type="date"
                     />
-                    <FormInput label="Post Date" name="postDate" type="date" />
+t                    <FormInput label="GL Post Date" name="postDate" type="date" />
                   </div>
 
                   <FormInput
