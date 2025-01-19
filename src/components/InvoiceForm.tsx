@@ -241,7 +241,7 @@ const InvoiceForm: React.FC = () => {
       alert("Invoice saved successfully!");
 
       const savedData = localStorage.getItem(STORAGE_KEY);
-      
+
       if (!savedData) {
         resetForm();
         setSelectedFile(null);
@@ -377,67 +377,70 @@ const InvoiceForm: React.FC = () => {
                 </FormSection>
 
                 <FormSection title="" subTitle="Invoice Deatils">
-                  {" "}
-                  <FormInput
-                    label="Invoice Number"
-                    name="invoiceNumber"
-                    placeholder="Enter invoice number"
-                  />
-                  <FormInput
-                    label="Invoice Date"
-                    name="invoiceDate"
-                    type="date"
-                  />
-                  <FormInput
-                    label="Total Amount"
-                    name="totalAmount"
-                    type="currency"
-                  />
-                  <FormInput
-                    label="Payment Terms"
-                    name="paymentTerms"
-                    as="select"
-                    options={formOptions.paymentTerms}
-                    placeholder="Select Payment Terms"
-                  />
-                  <FormInput
-                    label="Invoice Due Date"
-                    name="invoiceDueDate"
-                    type="date"
-                  />
-                  <FormInput label="Post Date" name="postDate" type="date" />
+                  <div className={styles.detailsContainer}>
+                    <FormInput
+                      label="Invoice Number"
+                      name="invoiceNumber"
+                      placeholder="Enter invoice number"
+                    />
+                    <FormInput
+                      label="Invoice Date"
+                      name="invoiceDate"
+                      type="date"
+                    />
+                    <FormInput
+                      label="Total Amount"
+                      name="totalAmount"
+                      type="currency"
+                    />
+                    <FormInput
+                      label="Payment Terms"
+                      name="paymentTerms"
+                      as="select"
+                      options={formOptions.paymentTerms}
+                      placeholder="Select Payment Terms"
+                    />
+                    <FormInput
+                      label="Invoice Due Date"
+                      name="invoiceDueDate"
+                      type="date"
+                    />
+                    <FormInput label="Post Date" name="postDate" type="date" />
+                  </div>
+
                   <FormInput
                     label="Invoice Description"
                     name="invoiceDescription"
-                    as="textarea"
                     placeholder="Enter invoice description"
                   />
                 </FormSection>
                 <FormSection title="" subTitle="Expense Details">
-                  <FormInput
-                    label="Line Amount"
-                    name="lineAmount"
-                    type="currency"
-                  />
-                  <FormInput
-                    label="Department"
-                    name="department"
-                    placeholder="Enter department"
-                  />
-                  <FormInput
-                    label="Account"
-                    name="account"
-                    placeholder="Enter account"
-                  />
-                  <FormInput
-                    label="Location"
-                    name="location"
-                    placeholder="Enter location"
-                  />
+                  <div className={styles.detailsContainer}>
+                    <FormInput
+                      label="Line Amount"
+                      name="lineAmount"
+                      type="currency"
+                    />
+                    <FormInput
+                      label="Department"
+                      name="department"
+                      placeholder="Enter department"
+                    />
+                    <FormInput
+                      label="Account"
+                      name="account"
+                      placeholder="Enter account"
+                    />
+                    <FormInput
+                      label="Location"
+                      name="location"
+                      placeholder="Enter location"
+                    />
+                  </div>
+
                   <FormInput
                     label="Description"
                     name="description"
-                    as="textarea"
                     placeholder="Enter description"
                   />
                 </FormSection>

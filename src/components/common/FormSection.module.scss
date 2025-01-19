@@ -8,6 +8,10 @@
   }
 }
 
+h4 {
+  padding-bottom:1rem;
+}
+
 .sectionHeader {
   display: flex;
   gap: 1rem;
@@ -15,12 +19,15 @@
   align-items: center;
   justify-content: flex-start;
 
-  h3 {
+  h2 {
     color: colors.$text-body;
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0;
   }
+
+
+
 
   .totalAmount {
     display: flex;

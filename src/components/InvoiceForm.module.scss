@@ -2,7 +2,7 @@
 
 .dashboardContainer {
   display: grid;
-  grid-template-columns: 450px 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: $spacing-4;
   min-height: 100vh;
   padding: $spacing-4;
@@ -38,7 +38,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 400px;
+  min-height: 600px;
   border: 2px dashed $border-dashed;
   border-radius: $radius-lg;
   padding: $spacing-8;
@@ -59,6 +59,11 @@
   }
 }
 
+.detailsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
 .uploadIcon {
   width: 120px;
   height: 120px;
