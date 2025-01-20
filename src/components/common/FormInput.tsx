@@ -29,7 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
         {label}
         {required && <span className={styles.required}>*</span>}
       </label>
-      
+
       {type === 'currency' ? (
         <div className={styles.currencyInput}>
           <span>$</span>
@@ -43,7 +43,7 @@ const FormInput: React.FC<FormInputProps> = ({
       ) : as === 'select' ? (
         <Field as="select" id={name} name={name}>
           <option value="">{placeholder || `Select ${label}`}</option>
-          {options?.map(option => (
+          {options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -57,6 +57,13 @@ const FormInput: React.FC<FormInputProps> = ({
           placeholder={placeholder}
           rows={rows || 3}
         />
+      ) : type === 'date' ? (
+        <Field
+          type="date"
+          id={name}
+          name={name}
+          placeholder='MM/DD/YYYY'
+        />
       ) : (
         <Field
           type={type}
@@ -65,7 +72,7 @@ const FormInput: React.FC<FormInputProps> = ({
           placeholder={placeholder}
         />
       )}
-      
+
       <ErrorMessage
         name={name}
         component="div"
@@ -75,4 +82,4 @@ const FormInput: React.FC<FormInputProps> = ({
   );
 };
 
-export default FormInput; 
+export default FormInput;
